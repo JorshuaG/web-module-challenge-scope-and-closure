@@ -31,6 +31,8 @@ console.log(
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+  first function will continue to add to the variable counter1 everytime the function is called, while counter2 will always reset the variable back to 0 since it is outside of the function.
   
   2. Which of the two uses a closure? How can you tell?
   
