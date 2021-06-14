@@ -35,9 +35,13 @@ console.log(
   first function will continue to add to the variable counter1 everytime the function is called, while counter2 will always reset the variable back to 0 since it is outside of the function.
   
   2. Which of the two uses a closure? How can you tell?
+
+  Counter1 is using a closure because it is pulling the count variable from its parent scope, while counter2 is pulling variable from outside of its function, not from a parent scope.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+     Counter1 would be preferable when you want your variable to add to the original variable without resetting everytime the function is called, while Counter2 would be used for an instance where you want the variable to reset everytime the function is called.
 */
 
 // counter1 code
@@ -95,7 +99,7 @@ function finalScore(inningCB, innings) {
   }
   return game[game.length - 1];
 }
-console.log(finalScore(inning, 9));
+// console.log(finalScore(inning, 9));
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
@@ -108,7 +112,7 @@ function getInningScore(inningCB) {
   inningScore = { Home: homeScore, Away: awayScore };
   return inningScore;
 }
-console.log(getInningScore(inning));
+// console.log(getInningScore(inning));
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
   1. Receive the callback function `getInningScore` from Task 4
@@ -150,9 +154,40 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScoreCB, inningCB, innings) {
+  let game = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < innings; i++) {
+    const inningScore = getInningScoreCB(inningCB);
+    game.push(
+      `Inning ${i + 1}: Away ${inningScore.Away} - Home: ${inningScore.Home}`
+    );
+    homeScore = homeScore + inningScore.Home;
+    awayScore = awayScore + inningScore.Away;
+  }
+  if (homeScore === awayScore) {
+    game.push(
+      `This game will require extra innings: Away ${awayScore} - Home ${homeScore}`
+    );
+  } else {
+    game.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  console.log(game);
+  return game;
 }
+
+scoreboard(getInningScore, inning, 9);
+// function getInningScore(inningCB) {
+//   let inningScore = {};
+//   let homeScore = inningCB();
+//   let awayScore = inningCB();
+//   inningScore = { Home: homeScore, Away: awayScore };
+//   return inningScore;
+
+//   function inning() {
+//     return Math.floor(Math.random() * 3);
+//  } }
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo() {
